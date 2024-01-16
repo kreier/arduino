@@ -17,8 +17,8 @@
 // remove UTFT font declaration e.g. SmallFont
 //################################################
 
-#include <UTFTGLUE.h>              //use GLUE class and constructor
-UTFTGLUE myGLCD(0x9486,A5,A4,A3,A2); //all dummy args
+#include <UTFTGLUE.h>                  // use GLUE class and constructor
+UTFTGLUE myGLCD(0x9486,A5,A4,A3,A2);   // working arguments with my 3.5inch 480x320 TFT
 
 // Declare which fonts we will be using
 //extern uint8_t SmallFont[];      //GLUE defines as GFXFont ref

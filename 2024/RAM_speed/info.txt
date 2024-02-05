@@ -1,4 +1,14 @@
+Arduino and STM32F103        450-950kByte/s           or   0.9 MB/s
+ESP32 with PSRAM (PseudoStatic RAM) - SPIRAM  90 MB/s and 20 MB/s
+EPS32S3 tested myself                         90 MB/s and 45 MB/s
+
+Article 1 from May 2014:
+https://forum.arduino.cc/t/fast-spi-23lc1024-ram-bank-photos-code-was-spi-eeprom-speeds-better/218908/13
+
+Article 2 from December 2019
 https://www.esp32.com/viewtopic.php?t=13356
+
+My test from February 2024
 
 PS Ram Speed
 Postby shabtronic » Mon Dec 02, 2019 10:52 pm

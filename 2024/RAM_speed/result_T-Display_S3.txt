@@ -1,0 +1,54 @@
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x15 (USB_UART_CHIP_RESET),boot:0x29 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x4201e446
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce3808,len:0x44c
+load:0x403c9700,len:0xbe4
+load:0x403cc700,len:0x2a68
+entry 0x403c98d4
+Ram Speed Test!
+
+Read Speed 8bit ArraySize    1kb  time: 0.0 20.6 mb/sec  
+Read Speed 8bit ArraySize    2kb  time: 0.0 20.6 mb/sec  
+Read Speed 8bit ArraySize    4kb  time: 0.0 20.7 mb/sec  
+Read Speed 8bit ArraySize    8kb  time: 0.0 20.6 mb/sec  
+Read Speed 8bit ArraySize   16kb  time: 0.0 20.6 mb/sec  
+Read Speed 8bit ArraySize   32kb  time: 0.1 20.6 mb/sec  
+Read Speed 8bit ArraySize   64kb  time: 0.2 16.7 mb/sec  
+Read Speed 8bit ArraySize  128kb  time: 0.4 16.7 mb/sec  
+Read Speed 8bit ArraySize  256kb  time: 0.7 16.7 mb/sec  
+Read Speed 8bit ArraySize  512kb  time: 0.3 16.7 mb/sec  
+Read Speed 8bit ArraySize 1024kb  time: 0.6 16.7 mb/sec  
+Read Speed 8bit ArraySize 2048kb  time: 1.2 16.7 mb/sec  
+Read Speed 8bit ArraySize 4000kb  time: 2.3 16.7 mb/sec   
+
+Read Speed 16bit ArraySize    1kb  time: 0.0 41.2 mb/sec  
+Read Speed 16bit ArraySize    2kb  time: 0.0 41.3 mb/sec  
+Read Speed 16bit ArraySize    4kb  time: 0.0 41.3 mb/sec  
+Read Speed 16bit ArraySize    8kb  time: 0.0 40.9 mb/sec  
+Read Speed 16bit ArraySize   16kb  time: 0.0 41.1 mb/sec  
+Read Speed 16bit ArraySize   32kb  time: 0.0 41.0 mb/sec  
+Read Speed 16bit ArraySize   64kb  time: 0.1 28.3 mb/sec  
+Read Speed 16bit ArraySize  128kb  time: 0.2 28.2 mb/sec  
+Read Speed 16bit ArraySize  256kb  time: 0.4 28.2 mb/sec  
+Read Speed 16bit ArraySize  512kb  time: 0.2 28.2 mb/sec  
+Read Speed 16bit ArraySize 1024kb  time: 0.4 28.2 mb/sec  
+Read Speed 16bit ArraySize 2048kb  time: 0.7 28.2 mb/sec  
+Read Speed 16bit ArraySize 4000kb  time: 1.4 28.2 mb/sec  
+
+Read Speed 32bit ArraySize    1kb  time: 0.0 90.4 mb/sec  
+Read Speed 32bit ArraySize    2kb  time: 0.0 90.5 mb/sec  
+Read Speed 32bit ArraySize    4kb  time: 0.0 90.8 mb/sec  
+Read Speed 32bit ArraySize    8kb  time: 0.0 89.1 mb/sec  
+Read Speed 32bit ArraySize   16kb  time: 0.0 90.0 mb/sec  
+Read Speed 32bit ArraySize   32kb  time: 0.0 89.6 mb/sec  
+Read Speed 32bit ArraySize   64kb  time: 0.1 45.9 mb/sec  
+Read Speed 32bit ArraySize  128kb  time: 0.1 45.7 mb/sec  
+Read Speed 32bit ArraySize  256kb  time: 0.3 45.7 mb/sec  
+Read Speed 32bit ArraySize  512kb  time: 0.1 45.7 mb/sec  
+Read Speed 32bit ArraySize 1024kb  time: 0.2 45.7 mb/sec  
+Read Speed 32bit ArraySize 2048kb  time: 0.4 45.7 mb/sec  
+Read Speed 32bit ArraySize 4000kb  time: 0.9 45.7 mb/sec  
+Test done!

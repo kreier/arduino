@@ -1,0 +1,221 @@
+https://www.esp32.com/viewtopic.php?t=13356
+
+PS Ram Speed
+Postby shabtronic » Mon Dec 02, 2019 10:52 pm
+
+Hi Folks
+
+I'm just venturing into using the 4mb PSRam on my esp32 board( currently a A1S - soon to be a Lyrat).
+
+What read/write speeds should I be expecting?
+
+I've written a simple test read program and I'm getting about 9MB/secs - that's single byte reads.
+
+I'm just doing this so I can factor in any speed considerations for future projects.
+
+thanks
+
+Shabby
+ESP_Sprite
+Posts: 8706
+Joined: Thu Nov 26, 2015 4:08 am
+Re: PS Ram Speed
+Postby ESP_Sprite » Tue Dec 03, 2019 2:20 am
+
+There's a cache in front of the PSRAM (same as flash cache) so the numbers are a bit fuzzy, but in general the psram, if configured at 80MHz clock speed, should have some 40 MByte/sec throughput. Note that because a write goes through the cache, you probably will see half that: the cache line needs to be loaded from PSRAM on the first write and needs to be written back when the cache line is evicted. Note that all of this only applies if you process large (say, >16K) bits of data; small chunks will just stay in the cache and you'll get more-or-less the same speed as internal memory.
+
+If you're getting 9MByte a second, you may want to set both your flash speed as well as your PSRAM speed to 80MHz (make menuconfig) as it sounds like those are set to 40MHz at the moment.
+User avatar
+shabtronic
+Posts: 49
+Joined: Sun Nov 03, 2019 1:33 pm
+Re: PS Ram Speed
+Postby shabtronic » Tue Dec 03, 2019 6:46 pm
+
+ESP_Sprite wrote: ↑
+Tue Dec 03, 2019 2:20 am
+There's a cache in front of the PSRAM (same as flash cache) so the numbers are a bit fuzzy, but in general the psram, if configured at 80MHz clock speed, should have some 40 MByte/sec throughput. Note that because a write goes through the cache, you probably will see half that: the cache line needs to be loaded from PSRAM on the first write and needs to be written back when the cache line is evicted. Note that all of this only applies if you process large (say, >16K) bits of data; small chunks will just stay in the cache and you'll get more-or-less the same speed as internal memory.
+
+If you're getting 9MByte a second, you may want to set both your flash speed as well as your PSRAM speed to 80MHz (make menuconfig) as it sounds like those are set to 40MHz at the moment.
+Hi Esp_SPrite
+
+
+thanks for taking the time to reply and the info - just wanted to know what to expect! 40mb/s that's great for a mmu/spi extension, beyond what I expected!
+
+Shabby
+User avatar
+shabtronic
+Posts: 49
+Joined: Sun Nov 03, 2019 1:33 pm
+Re: PS Ram Speed
+Postby shabtronic » Tue Dec 03, 2019 10:28 pm
+
+Hi Folks
+
+I put my mem speed test code and results on here - incase anyone else wants to try it - or spots any
+errors in my code :)
+
+I ran at 240mhz, spiram @ 80mhz
+
+Ram Speed Test!
+
+Read Speed 8bit ArraySize 1kb time: 0.0 22.6 mb/sec
+Read Speed 8bit ArraySize 2kb time: 0.0 22.8 mb/sec
+Read Speed 8bit ArraySize 4kb time: 0.0 22.8 mb/sec
+Read Speed 8bit ArraySize 8kb time: 0.0 22.9 mb/sec
+Read Speed 8bit ArraySize 16kb time: 0.0 22.9 mb/sec
+Read Speed 8bit ArraySize 32kb time: 0.1 20.3 mb/sec
+Read Speed 8bit ArraySize 64kb time: 0.3 12.0 mb/sec
+Read Speed 8bit ArraySize 128kb time: 0.5 12.0 mb/sec
+Read Speed 8bit ArraySize 256kb time: 1.0 12.0 mb/sec
+Read Speed 8bit ArraySize 512kb time: 0.4 12.0 mb/sec
+Read Speed 8bit ArraySize 1024kb time: 0.8 12.0 mb/sec
+Read Speed 8bit ArraySize 2048kb time: 1.7 12.0 mb/sec
+Read Speed 8bit ArraySize 4000kb time: 3.2 12.3 mb/sec
+
+Read Speed 16bit ArraySize 1kb time: 0.0 45.3 mb/sec
+Read Speed 16bit ArraySize 2kb time: 0.0 45.5 mb/sec
+Read Speed 16bit ArraySize 4kb time: 0.0 45.6 mb/sec
+Read Speed 16bit ArraySize 8kb time: 0.0 45.7 mb/sec
+Read Speed 16bit ArraySize 16kb time: 0.0 45.7 mb/sec
+Read Speed 16bit ArraySize 32kb time: 0.0 39.8 mb/sec
+Read Speed 16bit ArraySize 64kb time: 0.2 17.0 mb/sec
+Read Speed 16bit ArraySize 128kb time: 0.4 16.9 mb/sec
+Read Speed 16bit ArraySize 256kb time: 0.7 16.9 mb/sec
+Read Speed 16bit ArraySize 512kb time: 0.3 16.9 mb/sec
+Read Speed 16bit ArraySize 1024kb time: 0.6 16.9 mb/sec
+Read Speed 16bit ArraySize 2048kb time: 1.2 16.9 mb/sec
+Read Speed 16bit ArraySize 4000kb time: 2.3 17.2 mb/sec
+
+Read Speed 32bit ArraySize 1kb time: 0.0 89.6 mb/sec
+Read Speed 32bit ArraySize 2kb time: 0.0 90.3 mb/sec
+Read Speed 32bit ArraySize 4kb time: 0.0 91.0 mb/sec
+Read Speed 32bit ArraySize 8kb time: 0.0 91.2 mb/sec
+Read Speed 32bit ArraySize 16kb time: 0.0 91.4 mb/sec
+Read Speed 32bit ArraySize 32kb time: 0.0 76.3 mb/sec
+Read Speed 32bit ArraySize 64kb time: 0.1 21.2 mb/sec
+Read Speed 32bit ArraySize 128kb time: 0.3 21.2 mb/sec
+Read Speed 32bit ArraySize 256kb time: 0.6 21.2 mb/sec
+Read Speed 32bit ArraySize 512kb time: 0.2 21.2 mb/sec
+Read Speed 32bit ArraySize 1024kb time: 0.5 21.2 mb/sec
+Read Speed 32bit ArraySize 2048kb time: 0.9 21.2 mb/sec
+Read Speed 32bit ArraySize 4000kb time: 1.8 21.4 mb/sec
+Test done!
+
+CODE: SELECT ALL
+
+// Profile fun! microseconds to seconds
+double GetTime() { return (double)esp_timer_get_time() / 1000000; }
+
+int RamTest()
+	{
+	int rs[] = { 1,2,4,8,16,32,64,128,256,512,1024,2048,4000 };
+	printf("Ram Speed Test!\n\n");
+	char xx = 0;
+	for (int a = 0; a < 13; a++)
+		{
+		printf("Read Speed 8bit ArraySize %4dkb ", rs[a]);
+		int ramsize = rs[a] * 1024;
+		char * rm = (char*)malloc(ramsize);
+
+		int iters = 10; // Just enuff to boot the dog
+		if (rs[a] < 512) iters = 50;
+		double st = GetTime();
+		for (int b = 0; b < iters; b++)
+			for (int c = 0; c < ramsize; c++)
+				xx |= rm[c];
+		st = GetTime() - st;
+		vTaskDelay(1); // Dog it!
+		double speed = ((double)(iters*ramsize ) / (1024 * 1024)) / (st);
+		printf(" time: %2.1f %2.1f mb/sec  \n", st, speed);
+		free(rm);
+		}
+	printf("\n");
+	for (int a = 0; a < 13; a++)
+		{
+		printf("Read Speed 16bit ArraySize %4dkb ", rs[a]);
+		int ramsize = rs[a] * 1024;
+		short * rm = (short*)malloc(ramsize);
+
+		int iters = 10; // Just enuff to boot the dog
+		if (rs[a] < 512) iters = 50;
+		double st = GetTime();
+		for (int b = 0; b < iters; b++)
+			for (int c = 0; c < ramsize/2; c++)
+				xx |= rm[c];
+		st = GetTime() - st;
+		vTaskDelay(1); // Dog it!
+		double speed = ((double)(iters*ramsize) / (1024 * 1024)) / (st);
+		printf(" time: %2.1f %2.1f mb/sec  \n", st, speed);
+		free(rm);
+		}
+	printf("\n");
+	for (int a = 0; a < 13; a++)
+		{
+		printf("Read Speed 32bit ArraySize %4dkb ", rs[a]);
+		int ramsize = rs[a] * 1024;
+		int * rm = (int*)malloc(ramsize);
+
+		int iters = 10; // Just enuff to boot the dog
+		if (rs[a] < 512) iters = 50;
+		double st = GetTime();
+		for (int b = 0; b < iters; b++)
+			for (int c = 0; c < ramsize/4; c++)
+				xx |= rm[c];
+		st = GetTime() - st;
+		vTaskDelay(1); // Dog it!
+		double speed = ((double)(iters*ramsize) / (1024 * 1024)) / (st);
+		printf(" time: %2.1f %2.1f mb/sec  \n", st, speed);
+		free(rm);
+		}
+	printf("Test done!\n");
+	return xx;
+	}
+ESP_Sprite
+Posts: 8706
+Joined: Thu Nov 26, 2015 4:08 am
+Re: PS Ram Speed
+Postby ESP_Sprite » Wed Dec 04, 2019 2:41 am
+
+Those results are more or less what I'd expect. For lower array sizes, the array is entirely kept in cache and the speed is however fast the CPU can write there; you can see that because 8-bit writes are less efficient than 32-bit writes. From 16K'ish, the array can't be contained in the cache anymore and the performance slowly degrades to the theoretical 20MByte/sec read-modify-write speeds of the psram itself.
+User avatar
+shabtronic
+Posts: 49
+Joined: Sun Nov 03, 2019 1:33 pm
+Re: PS Ram Speed
+Postby shabtronic » Wed Dec 04, 2019 1:21 pm
+
+ESP_Sprite wrote: ↑
+Wed Dec 04, 2019 2:41 am
+Those results are more or less what I'd expect. For lower array sizes, the array is entirely kept in cache and the speed is however fast the CPU can write there; you can see that because 8-bit writes are less efficient than 32-bit writes. From 16K'ish, the array can't be contained in the cache anymore and the performance slowly degrades to the theoretical 20MByte/sec read-modify-write speeds of the psram itself.
+Hi ESP_Sprite
+
+Yeah - I noticed the cache thrash around 32kb. I'm super chuffed with these results - it makes
+a whole bundle of projects feasible for me - yaaay!!!
+
+Shabby
+franzhoepfinger
+Posts: 18
+Joined: Wed Mar 04, 2020 7:14 pm
+Re: PS Ram Speed
+Postby franzhoepfinger » Wed Sep 07, 2022 5:55 pm
+
+char * rm = (char*)malloc(ramsize);
+should be replaced by
+char * rm = (char*)heap_caps_malloc(ramsize, MALLOC_CAP_SPIRAM);
+zekageri
+Posts: 43
+Joined: Mon Sep 03, 2018 11:04 am
+Re: PS Ram Speed
+Postby zekageri » Wed Sep 21, 2022 1:36 pm
+
+So it took 1.8 sec to read 4mb?
+ghost07
+Posts: 36
+Joined: Mon Oct 03, 2022 11:47 am
+Re: PS Ram Speed
+Postby ghost07 » Thu Feb 23, 2023 10:55 am
+
+Yeah, read 4MB in 1.8 sec seems more like 2.14MB/sec, not 21.4MB/sec.
+However, after checking the code, he ran 10 iterations, so he actually read 40MB in 1.8 sec, and that would give 21.4 MB/sec.
+Just saying for future confused visitors.

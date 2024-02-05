@@ -1,0 +1,36 @@
+ets Jun  8 2016 00:22:57
+
+rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
+configsip: 0, SPIWP:0xee
+clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
+mode:DIO, clock div:1
+load:0x3fff0030,len:1344
+load:0x40078000,len:13964
+load:0x40080400,len:3600
+entry 0x400805f0
+Ram Speed Test!
+
+Read Speed 8bit ArraySize    1kb  time: 0.0 16.2 mb/sec  
+Read Speed 8bit ArraySize    2kb  time: 0.0 16.2 mb/sec  
+Read Speed 8bit ArraySize    4kb  time: 0.0 16.2 mb/sec  
+Read Speed 8bit ArraySize    8kb  time: 0.0 16.2 mb/sec  
+Read Speed 8bit ArraySize   16kb  time: 0.0 16.2 mb/sec  
+Read Speed 8bit ArraySize   32kb  time: 0.1 16.2 mb/sec  
+Read Speed 8bit ArraySize   64kb  time: 0.2 16.2 mb/sec  
+
+Read Speed 16bit ArraySize    1kb  time: 0.0 32.4 mb/sec  
+Read Speed 16bit ArraySize    2kb  time: 0.0 32.4 mb/sec  
+Read Speed 16bit ArraySize    4kb  time: 0.0 32.4 mb/sec  
+Read Speed 16bit ArraySize    8kb  time: 0.0 32.4 mb/sec  
+Read Speed 16bit ArraySize   16kb  time: 0.0 32.4 mb/sec  
+Read Speed 16bit ArraySize   32kb  time: 0.0 32.5 mb/sec  
+Read Speed 16bit ArraySize   64kb  time: 0.1 32.5 mb/sec  
+
+Read Speed 32bit ArraySize    1kb  time: 0.0 75.5 mb/sec  
+Read Speed 32bit ArraySize    2kb  time: 0.0 75.5 mb/sec  
+Read Speed 32bit ArraySize    4kb  time: 0.0 75.5 mb/sec  
+Read Speed 32bit ArraySize    8kb  time: 0.0 75.6 mb/sec  
+Read Speed 32bit ArraySize   16kb  time: 0.0 75.7 mb/sec  
+Read Speed 32bit ArraySize   32kb  time: 0.0 75.7 mb/sec  
+Read Speed 32bit ArraySize   64kb  time: 0.0 75.7 mb/sec  
+Test done!
